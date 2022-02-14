@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\EditEmployee;
+use App\Http\Livewire\Example;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/employee', EditEmployee::class);
+Route::get('/example', Example::class);

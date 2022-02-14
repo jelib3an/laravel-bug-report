@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Http\Livewire\Example;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
@@ -14,8 +16,10 @@ class ExampleTest extends TestCase
      */
     public function test_example()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        Livewire::test(Example::class)
+            ->set('property', 'value1')
+            ->assertSet('property', 'value1')
+            ->set('property', 'value2')
+            ->assertSet('property', 'value2');
     }
 }

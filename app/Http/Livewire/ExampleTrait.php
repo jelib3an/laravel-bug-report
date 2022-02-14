@@ -6,6 +6,6 @@ trait ExampleTrait
 {
     public function updatedExampleTrait()
     {
-        ray($this->employee->name)->red();
+        ray($this->property)->red();
     }
 }
