@@ -2,20 +2,28 @@
 
 namespace Tests\Feature;
 
+use App\Http\Livewire\Example;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_example()
+    /** @test */
+    public function livewire_validates_entire_array_if_element_changes()
     {
-        $response = $this->get('/');
+        Livewire::test(Example::class)
+            ->set('levels.0.id', 'not-numeric')
+            ->call('checkForErrors', 'levels.0')
+            ->assertSet('message', 'invalid');
+    }
 
-        $response->assertStatus(200);
+    /** @test */
+    public function query_using_array_key_finds_element_message_in_laravel_validator_error_bag()
+    {
+        Livewire::test(Example::class)
+            ->set('levels.0.id', 'not-numeric')
+            ->call('checkForErrorsUsingLaravel', 'levels.0')
+            ->assertSet('message', 'invalid');
     }
 }
