@@ -27,6 +27,10 @@ class Example extends Component
     public function updated($name)
     {
         $this->validateOnly($name);
+
+        if (preg_match("/^levels\.(\d+)\./", $name, $matches)) {
+            $this->validateOnly("levels.{$matches[1]}");
+        }
     }
 
     public function checkForErrors($name)
@@ -35,17 +39,6 @@ class Example extends Component
         $errors = $this->getErrorBag();
         if ($errors->has($name)) {
             $this->message = collect($errors->get($name))->first();
-        }
-    }
-
-    public function checkForErrorsUsingLaravel($name)
-    {
-        $validator = Validator::make(['levels' => $this->levels], $this->rules());
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            if ($errors->has($name)) {
-                $this->message = collect($errors->get($name))->first();
-            }
         }
     }
 

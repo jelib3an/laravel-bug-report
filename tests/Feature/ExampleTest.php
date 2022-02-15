@@ -17,13 +17,4 @@ class ExampleTest extends TestCase
             ->call('checkForErrors', 'levels.0')
             ->assertSet('message', 'invalid');
     }
-
-    /** @test */
-    public function query_using_array_key_finds_element_message_in_laravel_validator_error_bag()
-    {
-        Livewire::test(Example::class)
-            ->set('levels.0.id', 'not-numeric')
-            ->call('checkForErrorsUsingLaravel', 'levels.0')
-            ->assertSet('message', 'invalid');
-    }
 }
